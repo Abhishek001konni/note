@@ -9,7 +9,6 @@ const noteSchema = new mongoose.Schema({
     }
 );
 
-
 // Add a pre-save hook to trim the title and content
 noteSchema.pre('save', function(next) {
     this.title = this.title.trim();
