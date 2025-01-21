@@ -9,13 +9,14 @@ var cors = require("cors");
 
 /* Routes */
 var notesRoute = require('./routes/notes');
-var todosRoute = require('./routes/todos');
-var pasteRoute = require('./routes/paste');
+//var todosRoute = require('./routes/todos');
+//var pasteRoute = require('./routes/paste');
 
 var app = express();
 
+
 /* Connect to MongoDB */
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Could not connect to MongoDB', err));
 
@@ -29,8 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 /* APIRoutes */
 app.use('/api/notes', notesRoute);
-app.use('/api/todos', todosRoute);
-app.use('/api/paste', pasteRoute);
+//app.use('/api/todos', todosRoute);
+//app.use('/api/paste', pasteRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
