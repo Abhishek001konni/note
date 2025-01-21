@@ -2,9 +2,22 @@ const  mongoose = require('mongoose');
 
 const noteSchema = new mongoose.Schema({
     title: { type: String, required: true},
-    content: { type: String, required: true},
-    createdAt: { type: Date, default: Date.now},
-    updatedAt: { type: Date, default: Date.now}
-    });
+    content: { type: String, required: true}
+    },
+    {
+        timestamps: true
+    }
+);
 
-    module.exports = mongoose.model('Note', noteSchema);
+
+// Add a pre-save hook to trim the title and content
+noteSchema.pre('save', function(next) {
+    this.title = this.title.trim();
+    this.content = this.content.trim();
+    next();
+});
+
+module.exports = mongoose.model('Note', noteSchema);
+
+
+
