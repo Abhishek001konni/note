@@ -10,7 +10,7 @@ var cors = require("cors");
 /* Routes */
 var notesRoute = require('./routes/notes');
 var todosRoute = require('./routes/todo');
-//var pasteRoute = require('./routes/paste');
+var pasteRoute = require('./routes/paste');
 
 var app = express();
 
@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 /* APIRoutes */
 app.use('/api/notes', notesRoute);
 app.use('/api/todo', todosRoute);
-//app.use('/api/paste', pasteRoute);
+app.use('/api/paste', pasteRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
