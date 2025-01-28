@@ -6,19 +6,19 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
+var app = express();
 
 /* Routes */
 var notesRoute = require('./routes/notes');
 var todosRoute = require('./routes/todo');
 var pasteRoute = require('./routes/paste');
 
-var app = express();
-
 
 /* Connect to MongoDB */
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('Could not connect to MongoDB', err));
+
 
 /* Middlewares */
 app.use(cors());
