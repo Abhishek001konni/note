@@ -1,24 +1,22 @@
 require('dotenv').config();
-var mongoose = require('mongoose');
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var cors = require("cors");
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const cors = require("cors");
+const connectDB = require('./config/database');
+
+const app = express();
+app.disable('x-powered-by');
 
 /* Routes */
-var notesRoute = require('./routes/notes');
-var todosRoute = require('./routes/todo');
-var pasteRoute = require('./routes/paste');
-
-var app = express();
-
+const notesRoute = require('./routes/notes');
+const todosRoute = require('./routes/todo');
+const pasteRoute = require('./routes/paste');
 
 /* Connect to MongoDB */
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('Could not connect to MongoDB', err));
+connectDB();
 
 /* Middlewares */
 app.use(cors());
