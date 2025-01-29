@@ -6,9 +6,11 @@ const logger = require('morgan');
 const cors = require("cors");
 const connectDB = require('./config/database');
 const { notFoundHandler, errorHandler } = require('./middleware/errorHandler');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const compression = require('compression');
 
 const app = express();
-app.disable('x-powered-by');
 
 /* Routes */
 const notesRoute = require('./routes/notes');
@@ -18,13 +20,23 @@ const pasteRoute = require('./routes/paste');
 /* Connect to MongoDB */
 connectDB();
 
+/* Rate Limiting */
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100 // limit each IP to 100 requests per windowMs
+});
+
+
 /* Middlewares */
+app.use(helmet());
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(limiter);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(compression());
 
 /* APIRoutes */
 app.use('/api/notes', notesRoute);
