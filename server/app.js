@@ -13,6 +13,7 @@ const compression = require('compression');
 const app = express();
 
 /* Routes */
+const authRoute = require('./routes/auth');
 const notesRoute = require('./routes/notes');
 const todosRoute = require('./routes/todo');
 const pasteRoute = require('./routes/paste');
@@ -39,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(compression());
 
 /* APIRoutes */
+app.use('/api/auth', authRoute);
 app.use('/api/notes', notesRoute);
 app.use('/api/todo', todosRoute);
 app.use('/api/paste', pasteRoute);
