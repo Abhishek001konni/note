@@ -4,6 +4,8 @@ const Note = require('../models/Note');
 const { body, validationResult } = require('express-validator');
 const noteController = require('../controllers/notesController');
 const getById = require('../middleware/getById');
+const verifyToken = require('../middleware/verifyToken');
+
 
 // Middleware to validate the request body
 const validateNote = [
@@ -20,7 +22,7 @@ const validateNote = [
 
 
 /* GET all notes */
-router.get('/', noteController.getAllNotes);
+router.get('/', verifyToken, noteController.getAllNotes);
 
 /* GET a single note */
 router.get('/:id', getById(Note, 'note'), noteController.getNoteById);
