@@ -12,19 +12,25 @@ export const useAuthStore = defineStore('auth', {
             this.refreshToken = refreshToken;
             localStorage.setItem('accessToken', accessToken);
             localStorage.setItem('refreshToken', refreshToken);
+            
         },
         clearTokens() {
             this.accessToken = null;
             this.refreshToken = null;
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
+            
         },
-    },
-    loadTokens() {
+        loadTokens() {
         this.accessToken = localStorage.getItem('accessToken');
         this.refreshToken = localStorage.getItem('refreshToken');
-    },
+        
+        },
+},
+    
     getters: {
         isAuthenticated: (state) => !!state.accessToken,
     }
 });
+
+

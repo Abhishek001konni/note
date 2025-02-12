@@ -14,7 +14,6 @@ const login = async () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken.value}`,
             },
 
             body: JSON.stringify({
