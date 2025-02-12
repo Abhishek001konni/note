@@ -7,7 +7,7 @@ const authController = require('../controllers/authController');
 router.post('/signup', authController.signup);
 
 /* POST login a user */
-router.post('/login', verifyToken, authController.login);
+router.post('/login', authController.login);
 
 
 
