@@ -1,8 +1,10 @@
 <script setup>
 import { ref} from 'vue';
 import { useAuthStore } from '~/stores/auth';
+import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
+const router = useRouter();
 
 const apiURL  = useRuntimeConfig().public.apiBase;
 const email = ref('');
@@ -24,6 +26,7 @@ const login = async () => {
         const data = await response.json();
         console.log(data);
         authStore.setTokens(data.accessToken, data.refreshToken);
+        router.push('/notes');
   }   
 
 

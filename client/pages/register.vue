@@ -22,6 +22,7 @@ const register = async () => {
     console.log(data);
 
     authStore.setTokens(data.accessToken, data.refreshToken);
+    
 }
 
 </script> 
