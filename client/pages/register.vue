@@ -1,9 +1,11 @@
 <script setup>
 import { ref } from 'vue';
+import { useAuthStore } from '~/stores/auth';
+const authStore = useAuthStore();
+
 const email = ref('');
 const password = ref('');
-const runtimeConfig = useRuntimeConfig();
-const apiURL = runtimeConfig.public.apiBase;
+const apiURL = useRuntimeConfig().public.apiBase;
 
 const register = async () => {
     const response = await fetch(`${apiURL}api/auth/signup`, {
@@ -17,6 +19,9 @@ const register = async () => {
         })
     })
     const data = await response.json();
+    console.log(data);
+
+    authStore.setTokens(data.accessToken, data.refreshToken);
 }
 
 </script> 
